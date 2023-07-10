@@ -16,6 +16,27 @@
     
         <div class="palette" id="palette"> </div>   
     </div>
-    <script src="main.js"></script> 
+    <div id="container">
+        
+        <div id="lorem-ipsum"></div>
+    </div>
+    <div id="modal" class="modal-overlay">
+        <div class="modal-window">
+            <div class="title">
+                <h2>게임종료!</h2>
+            </div>
+            <div class="close-area">X</div>
+            <div class="content">
+                <div class="stage_score" id="stage_score"></div>
+                <p>한번더 도전해보실까요?</p>
+            </div>
+        </div>
+    </div>
+    <script src="main.js">
+        const loremIpsum = document.getElementById("lorem-ipsum")
+        fetch("https://baconipsum.com/api/?type=all-meat&paras=200&format=html")
+            .then(response => response.text())
+            .then(result => loremIpsum.innerHTML = result)
+    </script> 
 </body>
 </html>

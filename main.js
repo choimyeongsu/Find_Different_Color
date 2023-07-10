@@ -1,6 +1,10 @@
 let palette = document.getElementById("palette");
 let stage = document.getElementById("stage");
 let timer = document.getElementById("timer");
+const modal = document.getElementById("modal");
+const closeBtn = modal.querySelector(".close-area");
+const stagescore = modal.querySelector(".stage_score");
+
 let color;
 let timercount=15;
 let stagelevel=1;
@@ -38,6 +42,7 @@ function start()
 function resetgame()
 {
     stagelevel=1;
+    stage.innerHTML="stage : "+ stagelevel;
     timercount=15;
     colorsize=2;
     palette.replaceChildren();
@@ -124,12 +129,16 @@ function updatecolor()
 }
 function stageupdate()
 {
+    timercount=15;
     stagelevel++;
     stage.innerHTML="stage : " + stagelevel;
 }
 function no()
 {
-    alert("틀렸습니다");
+    modal.style.display="flex";
+    stagescore.innerHTML="기록 : STAGE "+stagelevel;
+    clearInterval(time);
+    
 } 
 function yes()
 {
@@ -158,6 +167,12 @@ function CreateEvent() //각 색상요소들의 클릭이벤트생성
         }
     }
 }
+closeBtn.addEventListener("click",e=>{
+    
+    modal.style.display="none";
+    resetgame();
+})
+
 create();
 CreateColor();
 CreateEvent();
