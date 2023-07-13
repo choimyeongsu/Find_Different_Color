@@ -1,20 +1,14 @@
 # Find_Different_Color
 --
 ![image](https://github.com/choimyeongsu/Find_Different_Color/assets/99162434/bcef6679-6db8-4b91-b43a-c95111da96e2)
-
----
-
-게임설명
+-----
+&#127773;게임설명
 - 여러개의 색상 중 다른 색상을 찾는 게임입니다.
-
---
-
-사용기술
+-----
+&#128195;사용기술
 - html, css, javascript
-
---
-
-게임기능
+-----
+&#128293;게임기능
 - 다른 색깔 찾기
 - 사용자는 주어진 시간 내 다른 색상을 찾아야 한다.
 - 사용자에게 15초가 주어진다
