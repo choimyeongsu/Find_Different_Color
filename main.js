@@ -2,38 +2,41 @@ let palette = document.getElementById("palette");
 let stage = document.getElementById("stage");
 let timer = document.getElementById("timer");
 const modal = document.getElementById("modal");
+const modal_yes = document.getElementById("modal_yes");
+const modal_success = document.getElementById("modal_success");
 const closeBtn = modal.querySelector(".close-area");
 const stagescore = modal.querySelector(".stage_score");
+const yes_button = document.getElementById("yes_close");
+const restart_button = document.getElementById("restart");
 
-let color;
+
 let timercount=15;
 let stagelevel=1;
 let time;
+let colorsize=2; //처음 색상칸개수지정 
+let falsenumber; //다른 색상이 들어갈 인덱스 
+let color; //색상
+let falsecolor; // 다른 색상
+let array=document.getElementsByClassName("color");//class이름이 color인요소들
+let line = document.getElementsByClassName("line");//class이름이 line인 요소들
 
 let timerword = document.createElement('div');
-timerword.innerHTML="timer "+timercount;
+timerword.innerHTML="&#128359; "+timercount;
 timer.appendChild(timerword);
 
 let stageword = document.createElement('div');
 stage.innerHTML="stage : "+ stagelevel;
 stage.appendChild(stageword);
 
-function start()
+function start() //타이머 
 {
     time = setInterval(()=>{
         
         timercount--;
-        //console.log("setinterval timercount"+timercount);
-        timerword.innerHTML="timer "+timercount;
+        timerword.innerHTML="&#128359; "+timercount;
         if(timercount==0)
         {
-            clearInterval(time);
-    
-            //결과모달출력
-            //게임설정값초기화 
-            resetgame();
-            console.log("다음에 도전하세요");
-    
+            no();
         }
     },1000);
 }
@@ -46,14 +49,11 @@ function resetgame()
     timercount=15;
     colorsize=2;
     palette.replaceChildren();
-    create();
-    CreateColor();
-    CreateEvent();
-    //console.log("timercount : "+ timercount);
-    start();
+    execute();
 }
-let colorsize=2; //처음 색상칸개수지정 
-function create()
+
+
+function create() //html에 색깔이 들어갈 코드생성
 {
     for(let i=0; i<colorsize; i++)
     {
@@ -70,15 +70,7 @@ function create()
 }
 
 
-
-let array=document.getElementsByClassName("color");
-let line = document.getElementsByClassName("line");
-
-
-let size=100;
-
-//랜덤하게 헥스코드로반환하는 함수 
-function randomcolor()
+function randomcolor() //랜덤하게 색상생성(헥스코드로반환)
 {
   let color_r = Math.floor(Math.random() * 127 + 128).toString(16);
   let color_g = Math.floor(Math.random() * 127 + 128).toString(16);
@@ -86,53 +78,41 @@ function randomcolor()
   return `#${color_r+color_g+color_b}`;
 }
 
-let falsenumber; //다른 색상이 들어간 인덱스 
-let falsecolor;
+
 function CreateColor()
 {
-    falsenumber=Math.floor(Math.random()*(colorsize*colorsize)); //랜덤생성
-    console.log(falsenumber);
+    falsenumber=Math.floor(Math.random()*(colorsize*colorsize)); //다른색상이들어갈넘버
     color = randomcolor();
     falsecolor = randomcolor();
     for(let i=0; i<(colorsize*colorsize); i++)
     {
-        
-        //색상지정 
-        if(falsenumber==i)
-        {
-            console.log("faslecolor :" + falsecolor);   
-            if(falsecolor==color)
+        if(falsenumber==i) //다른색상지정 
+        {  
+            if(falsecolor==color) //같은색상이나올경우대비
             {
-                console.log("if if");
                 falsecolor=randomcolor();
             }
             array[i].style.backgroundColor=falsecolor;
-            //색상을 생성해주는 함수필요
-            //array[i].style.backgroundColor=`skyblue`
         }
         else
         {
-            if(falsecolor==color)
+            if(falsecolor==color) //같은색상이나올경우대비
             {
-                console.log("else if");
                 color=randomcolor();
             }
-            console.log(color);
             array[i].style.backgroundColor=color;      
         }
                
     }
 }
-function updatecolor()
+function update()
 {
     colorsize++;
-}
-function stageupdate()
-{
     timercount=15;
     stagelevel++;
     stage.innerHTML="stage : " + stagelevel;
 }
+
 function no()
 {
     modal.style.display="flex";
@@ -140,24 +120,27 @@ function no()
     clearInterval(time);
     
 } 
-function yes()
+function yes() 
 {
-    alert("정답입니다");
-    palette.replaceChildren(); //이전생성한 색상삭제(자식노드삭제)
-    updatecolor(); // 사이즈 업데이트
-    create(); // 자식노드생성
-    CreateColor(); //자식색상생성
-    CreateEvent(); //자식이벤트생성
-    stageupdate();//stage +1
-    //item들에 관련된 사이즈 같은 값들 업데이트해주는함수
-    //다시 item 생성
+    if(stagelevel==5)
+    {
+        modal_success.style.display="flex";
+        clearInterval(time);
+    }
+    else
+    {
+        modal_yes.style.display="flex";
+        clearInterval(time);
+    }
+    
+    
 }
 
 function CreateEvent() //각 색상요소들의 클릭이벤트생성 
 {
     for(let i=0; i<(colorsize*colorsize); i++)
     {
-        if(falsenumber===i)
+        if(falsenumber===i) //틀린색상 즉 정답 클릭한경우
         {
             array[i].addEventListener("click", yes);
         }
@@ -170,10 +153,27 @@ function CreateEvent() //각 색상요소들의 클릭이벤트생성
 closeBtn.addEventListener("click",e=>{
     
     modal.style.display="none";
+    clearInterval(time);
     resetgame();
 })
 
-create();
-CreateColor();
-CreateEvent();
-start();
+yes_button.addEventListener("click", e=>{
+    modal_yes.style.display="none";
+    palette.replaceChildren(); //이전생성한 색상삭제(자식노드삭제)
+    update(); // 업데이트(color사이즈, 시간초기화, 스테이지레벨증가)
+    execute();
+})
+restart_button.addEventListener("click", e=>{
+    modal_success.style.display="none";
+    clearInterval(time);
+    resetgame();
+})
+function execute()
+{
+    create();
+    CreateColor();
+    CreateEvent();
+    start();
+}
+
+execute();

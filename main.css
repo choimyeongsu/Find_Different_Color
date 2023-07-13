@@ -1,4 +1,5 @@
 .header{
+    margin-top: 30px;
     display:flex;
     justify-content: center;
 }
@@ -14,7 +15,7 @@ body{
 .stage{
     font-size:50px;
     color:white;
-    margin-left: 100px;
+    margin-left: 200px;
 }
 
 .palette{
@@ -28,6 +29,7 @@ body{
     align-items: center;
     margin-top:20px;
     flex-basis:100px;
+    margin-top: 50px;
     
 }
 
@@ -62,6 +64,92 @@ body{
     border-radius: 10px;
     border: 1px solid rgba(255, 255, 255, 0.18);
 }
+#modal_yes{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.25);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(1.5px);
+    -webkit-backdrop-filter: blur(1.5px);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+#modal_success{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.25);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(1.5px);
+    -webkit-backdrop-filter: blur(1.5px);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+}
+#modal_yes .modal-window{
+    background: rgba( 69, 139, 197, 0.70 );
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+    backdrop-filter: blur( 13.5px );
+    -webkit-backdrop-filter: blur( 13.5px );
+    border-radius: 10px;
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
+    width: 350px;
+    height: 300px;
+    position: relative;
+    top: -100px;
+    padding: 10px;
+}
+#modal_yes .title{
+    font-size:25px;
+    color:white;
+    text-align: center;
+}
+
+#yes_close{
+    font-size:25px;
+    border-radius: 10%;
+    background-color:white;
+    margin-top:20px;
+}
+#modal_success .modal-window{
+    background: rgba( 69, 139, 197, 0.70 );
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+    backdrop-filter: blur( 13.5px );
+    -webkit-backdrop-filter: blur( 13.5px );
+    border-radius: 10px;
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
+    width: 350px;
+    height: 300px;
+    position: relative;
+    top: -100px;
+    padding: 10px;
+}
+
+#modal_success .title{
+    font-size:25px;
+    color:white;
+    text-align: center;
+}
+#restart{
+    font-size:25px;
+    border-radius: 10%;
+    background-color:white;
+    margin-top:20px;
+}
+
 #modal .modal-window {
     background: rgba( 69, 139, 197, 0.70 );
     box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
@@ -70,17 +158,18 @@ body{
     border-radius: 10px;
     border: 1px solid rgba( 255, 255, 255, 0.18 );
     width: 400px;
-    height: 500px;
+    height: 400px;
     position: relative;
     top: -100px;
     padding: 10px;
 }
 #modal .title {
     font-size:30px;
-    padding-left: 10px;
+    padding-left: 100px;
     display: inline;
     text-shadow: 1px 1px 2px gray;
     color: white;
+    
     
 }
 #modal .title h2 {
@@ -96,10 +185,11 @@ body{
 }
 
 #modal .content {
-    font-size:25px;
+    font-size:35px;
     margin-top: 20px;
     padding: 0px 10px;
     text-shadow: 1px 1px 2px gray;
     color: white;
+    text-align:center;
 }
 
